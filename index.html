@@ -116,6 +116,15 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 @media (max-width:979px){.hero{padding-top:28px}.hero-testo>.btn{align-self:stretch}}
 @media (min-width:980px){.hero-testo>*{order:0!important}.hero-testo>.lead{margin:0 0 22px}}
 @media (min-width:980px){.hero{padding:70px 0 90px}.hero-grid{grid-template-columns:1.08fr .92fr;gap:56px}}
+/* da telefono i pezzi dell'apertura stanno in una colonna sola, cosi' la VSL entra subito
+   dopo il sottotitolo; da computer la VSL prende la colonna di destra al posto di Zoom */
+@media (max-width:979px){
+  .hero-grid{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+  .hero-testo{display:contents}
+  .hero-grid>.vsl{order:0;align-self:center;margin:6px 0 28px}
+  .hero-grid>.zoom{order:6;align-self:stretch;margin-top:40px}
+}
+@media (min-width:980px){.hero-testo{grid-column:1;grid-row:1}.hero-grid>.vsl{grid-column:2;grid-row:1;justify-self:center}.hero.con-vsl .hero-grid>.zoom{display:none}}
 .pallino{display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF4D5E;margin-right:9px;vertical-align:.08em;box-shadow:0 0 0 0 rgba(255,77,94,.6);animation:battito 2s infinite}
 @keyframes battito{0%{box-shadow:0 0 0 0 rgba(255,77,94,.55)}70%{box-shadow:0 0 0 9px rgba(255,77,94,0)}100%{box-shadow:0 0 0 0 rgba(255,77,94,0)}}
 .hero h1{font-size:clamp(2.75rem,9vw,5.3rem);letter-spacing:-.04em;line-height:.98;margin-bottom:22px}
@@ -134,6 +143,32 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 .conto b.tic{animation:tic .45s ease}
 @keyframes tic{0%{transform:translateY(-35%);opacity:0}100%{transform:none;opacity:1}}
 .conto-stato{margin:0 0 22px;font:700 1.05rem/1.3 var(--mono);color:var(--bio)}
+
+/* --- VSL: spazio per un video verticale 9:16. Si accende scrivendo data-yt (id del video
+   YouTube) o data-mp4 (indirizzo del file), piu' data-poster per la copertina; vuoto resta
+   nascosto sul dominio vero e si vede tratteggiato in anteprima (file locale o ?anteprima).
+   Il video si carica solo al tocco: fino ad allora niente YouTube e niente mp4. --- */
+.vsl{position:relative;width:min(100%,calc(min(70vh,600px) * .5625));aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#14102A;color:#fff;box-shadow:0 30px 70px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1)}
+@supports (height:1svh){.vsl{width:min(100%,calc(min(70svh,600px) * .5625))}}
+.vsl-play{position:absolute;inset:0;z-index:0;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;padding:26px 20px;border:0;margin:0;color:#fff;font:inherit;text-align:center;cursor:pointer;background:radial-gradient(120% 60% at 50% 0%,rgba(124,147,255,.42),transparent 62%),radial-gradient(100% 55% at 50% 100%,rgba(255,107,176,.36),transparent 70%),#14102A;-webkit-tap-highlight-color:transparent}
+.vsl-play:focus-visible{outline:3px solid var(--ciano);outline-offset:-6px}
+.vsl-volto{width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 0 0 4px rgba(255,255,255,.14),0 0 0 12px rgba(255,255,255,.05)}
+.vsl-volto img{width:100%;height:100%;object-fit:cover}
+.vsl-tasto{position:relative;width:76px;height:76px;flex:none;border-radius:50%;background:var(--cta);box-shadow:0 14px 34px -10px rgba(255,130,120,.85);transition:transform .2s ease}
+.vsl-tasto::before{content:"";position:absolute;left:31px;top:24px;border-style:solid;border-width:14px 0 14px 22px;border-color:transparent transparent transparent #14102A}
+.vsl-tasto::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,178,62,.6);animation:onda-vsl 2.4s ease-out infinite}
+@keyframes onda-vsl{from{transform:scale(.85);opacity:1}to{transform:scale(1.35);opacity:0}}
+.vsl-play:hover .vsl-tasto{transform:scale(1.06)}
+.vsl-testo{display:block;max-width:24ch}
+.vsl-testo b{display:block;font-size:1.12rem;line-height:1.25;margin-bottom:4px}
+.vsl-testo span{display:block;font-size:.9rem;line-height:1.35;color:rgba(255,255,255,.78)}
+.vsl-poster{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover}
+.vsl.con-poster .vsl-volto{display:none}
+.vsl.con-poster .vsl-play{justify-content:flex-end;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.72))}
+.vsl.vuoto{outline:2px dashed var(--oro);outline-offset:-2px}
+.vsl.vuoto .vsl-play{cursor:default}
+.vsl.vuoto::after{content:attr(data-etichetta);position:absolute;top:12px;left:12px;right:12px;z-index:2;padding:7px 10px;border-radius:9px;background:rgba(0,0,0,.66);color:#FFB23E;font:650 .7rem/1.35 var(--mono);text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
+.vsl iframe,.vsl video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 
 /* --- la finestra di Zoom --- */
 .zoom{margin:0;border-radius:22px;background:#0E1117;color:#E8EAF0;border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 70px -30px rgba(0,0,0,.8),0 0 0 1px rgba(46,139,224,.15);overflow:hidden}
@@ -463,6 +498,15 @@ html:not(.js) .solo-js{display:none}
 <a class="btn btn-luce" href="#prenota">Sì, voglio esserci giovedì <span class="freccia" aria-hidden="true">&rarr;</span></a>
 <p class="nota">Bastano nome, cellulare ed email. Il link Zoom e lo Studybook ti arrivano prima della diretta.</p>
 </div>
+<!-- VSL 2 (ingresso dalle ads, docs/vsl/vsl-2-ingresso-ads.md): scrivere l'id YouTube in data-yt,
+     oppure l'indirizzo del file in data-mp4; data-poster per la copertina (facoltativa) -->
+<div class="vsl" id="vsl-ingresso" data-yt="" data-mp4="" data-poster="" data-etichetta="Spazio VSL 2 · ingresso dalle ads · 2 min, verticale 9:16" hidden>
+<button class="vsl-play" type="button" data-count="vsl-ingresso" aria-label="Guarda il video: due minuti su cosa succede giovedì">
+<span class="vsl-volto"><img src="img/luca.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span>
+<span class="vsl-tasto" aria-hidden="true"></span>
+<span class="vsl-testo"><b>Prima guarda questi due minuti</b><span>Luca ti racconta cosa succede giovedì sera</span></span>
+</button>
+</div>
 <figure class="zoom" aria-label="Anteprima della diretta su Zoom">
 <div class="zoom-barra" aria-hidden="true"><i></i><i></i><i></i><span>Zoom · Webinar</span><span class="zoom-live">In diretta gio 12/11</span></div>
 <div class="zoom-palco">
@@ -654,7 +698,7 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
 </div>
 <div class="reg-modulo" id="prenota">
 <div class="modulo">
-<form class="form-box" id="evento-form" data-endpoint="https://formspree.io/f/meeykbkz" data-crm="https://services.leadconnectorhq.com/hooks/TroBOoj6VXu43sFr8sri/webhook-trigger/35000041-6dea-4a64-a372-99c58bbdcba9" data-dopo="evento-ok" data-ok="Prenotazione ricevuta: il link della live ti arriva prima dell&#x27;inizio." data-ko="Invio non riuscito. Riprova tra poco o scrivici su WhatsApp." novalidate>
+<form class="form-box" id="evento-form" data-endpoint="https://formspree.io/f/meeykbkz" data-crm="https://services.leadconnectorhq.com/hooks/TroBOoj6VXu43sFr8sri/webhook-trigger/35000041-6dea-4a64-a372-99c58bbdcba9" data-dopo="evento-ok" data-vai="/evento/grazie/" data-ok="Prenotazione ricevuta: il link della live ti arriva prima dell&#x27;inizio." data-ko="Invio non riuscito. Riprova tra poco o scrivici su WhatsApp." novalidate>
 <p class="form-quando">Gio 12 novembre · 21:00 · Zoom</p>
 <h3>Prenota il tuo posto</h3>
 <input type="hidden" name="_subject" value="Prenotazione live 12 novembre">
@@ -768,6 +812,45 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
       giro();
     }
   }
+
+  /* --- VSL: vuota resta nascosta sul dominio vero, in anteprima si vede tratteggiata;
+     il video (YouTube senza cookie o mp4) entra solo al tocco --- */
+  var vero = ['portaledeifuturimedici.com', 'www.portaledeifuturimedici.com'].indexOf(String(location.hostname).toLowerCase()) >= 0;
+  var anteprima = !vero || /[?&]anteprima\b/.test(location.search);
+  tutti('.vsl').forEach(function (v) {
+    var yt = (v.getAttribute('data-yt') || '').trim(), mp4 = (v.getAttribute('data-mp4') || '').trim();
+    var poster = (v.getAttribute('data-poster') || '').trim(), play = v.querySelector('.vsl-play');
+    var accendi = function () { v.hidden = false; var h = v.closest('.hero'); if (h) h.classList.add('con-vsl'); };
+    if (!yt && !mp4) {
+      if (anteprima) { accendi(); v.classList.add('vuoto'); play.setAttribute('aria-disabled', 'true'); }
+      return;
+    }
+    accendi();
+    if (poster) {
+      var im = d.createElement('img');
+      im.className = 'vsl-poster'; im.src = poster; im.alt = ''; im.decoding = 'async';
+      play.insertBefore(im, play.firstChild);
+      v.classList.add('con-poster');
+    }
+    play.addEventListener('click', function () {
+      var el;
+      if (yt) {
+        el = d.createElement('iframe');
+        el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&playsinline=1&rel=0';
+        el.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        el.setAttribute('allowfullscreen', '');
+        el.title = play.getAttribute('aria-label');
+      } else {
+        el = d.createElement('video');
+        el.src = mp4; el.controls = true; el.autoplay = true; el.playsInline = true;
+        el.setAttribute('playsinline', '');
+        if (poster) el.poster = poster;
+      }
+      v.textContent = '';
+      v.appendChild(el);
+      if (el.play) { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    });
+  });
 
   /* --- comparsa allo scorrere --- */
   if (IO && !calmo) {
@@ -1083,6 +1166,7 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
       msg.className = 'form-msg';
       var crm = (form.dataset.crm && (!ok || ok.checked) && EMAIL_OK.test(mail.value)) ? form.dataset.crm : '';
       var corpo = new FormData(form);
+      try { sessionStorage.setItem('ev-nome', (form.querySelector('[name=nome]').value.trim().split(/\s+/)[0] || '').slice(0, 30)); } catch (x) {}
       var esitoPrincipale = 0, segno = 0, partito = false, scaduto = false, chiuso = false, timer = null;
       function mostra() {
         say('ok', form.getAttribute('data-ok'));
