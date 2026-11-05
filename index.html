@@ -853,7 +853,8 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
       var el;
       if (yt) {
         el = d.createElement('iframe');
-        el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&playsinline=1&rel=0';
+        el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&playsinline=1&rel=0' + (v.classList.contains('orizz') ? '&controls=0' : '');
+        el.referrerPolicy = 'strict-origin-when-cross-origin';
         el.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         el.setAttribute('allowfullscreen', '');
         el.title = play.getAttribute('aria-label');
