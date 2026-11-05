@@ -168,6 +168,8 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 .vsl.vuoto{outline:2px dashed var(--oro);outline-offset:-2px}
 .vsl.vuoto .vsl-play{cursor:default}
 .vsl.vuoto::after{content:attr(data-etichetta);position:absolute;top:12px;left:12px;right:12px;z-index:2;padding:7px 10px;border-radius:9px;background:rgba(0,0,0,.66);color:#FFB23E;font:650 .7rem/1.35 var(--mono);text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
+.vsl.orizz{width:100%;aspect-ratio:16/9;border-radius:18px}
+.vsl.orizz .vsl-volto{width:22%}
 .vsl iframe,.vsl video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 
 /* --- la finestra di Zoom --- */
@@ -507,7 +509,7 @@ html:not(.js) .solo-js{display:none}
 </div>
 <!-- VSL 2 (ingresso dalle ads, docs/vsl/vsl-2-ingresso-ads.md): scrivere l'id YouTube in data-yt,
      oppure l'indirizzo del file in data-mp4; data-poster per la copertina (facoltativa) -->
-<div class="vsl" id="vsl-ingresso" data-yt="" data-mp4="" data-poster="" data-etichetta="Spazio VSL 2 · ingresso dalle ads · 2 min, verticale 9:16" hidden>
+<div class="vsl orizz" id="vsl-ingresso" data-yt="gIcyYIG2Oqs" data-mp4="" data-poster="" data-etichetta="Spazio VSL 2 · ingresso dalle ads · 2 min, orizzontale 16:9" hidden>
 <button class="vsl-play" type="button" data-count="vsl-ingresso" aria-label="Guarda il video: due minuti su cosa succede giovedì">
 <span class="vsl-volto"><img src="img/luca.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span>
 <span class="vsl-tasto" aria-hidden="true"></span>
