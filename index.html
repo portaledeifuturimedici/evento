@@ -529,7 +529,7 @@ html:not(.js) .solo-js{display:none}
 <!-- VSL 2 (ingresso dalle ads, docs/vsl/vsl-2-ingresso-ads.md): scrivere l'id YouTube in data-yt,
      oppure l'indirizzo del file in data-mp4; data-poster per la copertina (facoltativa) -->
 <div class="vsl orizz" id="vsl-ingresso" hidden>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gIcyYIG2Oqs?si=Vfy2teXUbywrfvKm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gIcyYIG2Oqs?si=Vfy2teXUbywrfvKm&amp;autoplay=1&amp;mute=1&amp;playsinline=1&amp;enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 <figure class="zoom" aria-label="Anteprima della diretta su Zoom">
 <div class="zoom-barra" aria-hidden="true"><i></i><i></i><i></i><span>Zoom · Webinar</span><span class="zoom-live">In diretta gio 12/11</span></div>
@@ -850,7 +850,21 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
   var vero = ['portaledeifuturimedici.com', 'www.portaledeifuturimedici.com'].indexOf(String(location.hostname).toLowerCase()) >= 0;
   var anteprima = !vero || /[?&]anteprima\b/.test(location.search);
   tutti('.vsl').forEach(function (v) {
-    if (v.querySelector('iframe')) { v.hidden = false; var hh = v.closest('.hero'); if (hh) hh.classList.add('con-vsl'); return; }
+    var fe = v.querySelector('iframe');
+    if (fe) {
+      v.hidden = false; var hh = v.closest('.hero'); if (hh) hh.classList.add('con-vsl');
+      /* parte da solo, muto (i browser non permettono l'audio automatico); il tasto lo riaccende */
+      var au = d.createElement('button');
+      au.type = 'button'; au.className = 'vsl-audio'; au.textContent = "\uD83D\uDD07 Tocca per attivare l'audio";
+      au.addEventListener('click', function () {
+        ['unMute', 'setVolume', 'playVideo'].forEach(function (f) {
+          fe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: f, args: f === 'setVolume' ? [100] : [] }), '*');
+        });
+        au.remove();
+      });
+      v.appendChild(au);
+      return;
+    }
     var yt = (v.getAttribute('data-yt') || '').trim(), mp4 = (v.getAttribute('data-mp4') || '').trim();
     var poster = (v.getAttribute('data-poster') || '').trim(), play = v.querySelector('.vsl-play');
     var accendi = function () { v.hidden = false; var h = v.closest('.hero'); if (h) h.classList.add('con-vsl'); };
