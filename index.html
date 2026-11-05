@@ -528,12 +528,8 @@ html:not(.js) .solo-js{display:none}
 </div>
 <!-- VSL 2 (ingresso dalle ads, docs/vsl/vsl-2-ingresso-ads.md): scrivere l'id YouTube in data-yt,
      oppure l'indirizzo del file in data-mp4; data-poster per la copertina (facoltativa) -->
-<div class="vsl orizz" id="vsl-ingresso" data-yt="gIcyYIG2Oqs" data-mp4="" data-poster="" data-etichetta="Spazio VSL 2 · ingresso dalle ads · 2 min, orizzontale 16:9" hidden>
-<button class="vsl-play" type="button" data-count="vsl-ingresso" aria-label="Guarda il video: due minuti su cosa succede giovedì">
-<span class="vsl-volto"><img src="img/luca.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span>
-<span class="vsl-tasto" aria-hidden="true"></span>
-<span class="vsl-testo"><b>Prima guarda questi due minuti</b><span>Luca ti racconta cosa succede giovedì sera</span></span>
-</button>
+<div class="vsl orizz" id="vsl-ingresso" hidden>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gIcyYIG2Oqs?si=Vfy2teXUbywrfvKm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 <figure class="zoom" aria-label="Anteprima della diretta su Zoom">
 <div class="zoom-barra" aria-hidden="true"><i></i><i></i><i></i><span>Zoom · Webinar</span><span class="zoom-live">In diretta gio 12/11</span></div>
@@ -854,6 +850,7 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
   var vero = ['portaledeifuturimedici.com', 'www.portaledeifuturimedici.com'].indexOf(String(location.hostname).toLowerCase()) >= 0;
   var anteprima = !vero || /[?&]anteprima\b/.test(location.search);
   tutti('.vsl').forEach(function (v) {
+    if (v.querySelector('iframe')) { v.hidden = false; var hh = v.closest('.hero'); if (hh) hh.classList.add('con-vsl'); return; }
     var yt = (v.getAttribute('data-yt') || '').trim(), mp4 = (v.getAttribute('data-mp4') || '').trim();
     var poster = (v.getAttribute('data-poster') || '').trim(), play = v.querySelector('.vsl-play');
     var accendi = function () { v.hidden = false; var h = v.closest('.hero'); if (h) h.classList.add('con-vsl'); };
