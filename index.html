@@ -170,6 +170,7 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 .vsl.vuoto::after{content:attr(data-etichetta);position:absolute;top:12px;left:12px;right:12px;z-index:2;padding:7px 10px;border-radius:9px;background:rgba(0,0,0,.66);color:#FFB23E;font:650 .7rem/1.35 var(--mono);text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
 .vsl.orizz{width:100%;aspect-ratio:16/9;border-radius:18px}
 .vsl.orizz .vsl-volto{display:none}
+.vsl-audio{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:3;padding:10px 18px;border:0;border-radius:999px;background:var(--cta);color:#14102A;font:700 .92rem/1 var(--sans);cursor:pointer;box-shadow:0 10px 28px -8px rgba(255,130,120,.8);white-space:nowrap}
 .vsl.orizz .vsl-play{gap:14px;padding:16px}
 .vsl.orizz .vsl-testo{max-width:30ch}
 .vsl.orizz .vsl-testo b{font-size:clamp(1rem,2.6vw,1.5rem)}
@@ -186,8 +187,8 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 .hero.con-vsl .hero-testo>.conto-stato{order:7!important;margin-top:26px;text-align:center}
 .hero.con-vsl .hero-testo>.conto{order:7!important;margin:26px 0 0;justify-content:center}
 .hero.con-vsl .hero-testo>.chips{order:8!important;justify-content:center;margin:22px 0 0}
-.hero.con-vsl .hero-testo>.lead{order:9!important;margin:26px auto 0;text-align:center}
-.hero.con-vsl .hero-grid>.zoom{display:none}
+.hero.con-vsl .hero-testo>.lead{order:10!important;margin:26px auto 0;text-align:center}
+.hero.con-vsl .hero-grid>.zoom{display:block!important;order:9;align-self:center;width:100%;max-width:760px;margin:26px 0 0;text-align:left}
 .vsl iframe,.vsl video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 
 /* --- la finestra di Zoom --- */
@@ -866,6 +867,29 @@ In realtà per ora la parte difficile e propriamente tempo, tra la stanchezza e 
       im.className = 'vsl-poster'; im.src = poster; im.alt = ''; im.decoding = 'async';
       play.insertBefore(im, play.firstChild);
       v.classList.add('con-poster');
+    }
+    /* VSL grande: parte da sola appena la pagina si carica. I browser permettono l'avvio
+       automatico solo senza audio: parte muta e un tasto «Attiva l'audio» la riaccende al tocco */
+    if (yt && v.classList.contains('orizz')) {
+      var fa = d.createElement('iframe');
+      fa.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&mute=1&playsinline=1&rel=0&controls=0&enablejsapi=1';
+      fa.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      fa.setAttribute('allowfullscreen', '');
+      fa.referrerPolicy = 'strict-origin-when-cross-origin';
+      fa.title = play.getAttribute('aria-label');
+      var audio = d.createElement('button');
+      audio.type = 'button'; audio.className = 'vsl-audio'; audio.textContent = "\uD83D\uDD07 Tocca per attivare l'audio";
+      audio.addEventListener('click', function () {
+        ['unMute', 'setVolume'].forEach(function (f) {
+          fa.contentWindow.postMessage(JSON.stringify({ event: 'command', func: f, args: f === 'setVolume' ? [100] : [] }), '*');
+        });
+        fa.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+        audio.remove();
+      });
+      v.textContent = '';
+      v.appendChild(fa);
+      v.appendChild(audio);
+      return;
     }
     play.addEventListener('click', function () {
       var el;
