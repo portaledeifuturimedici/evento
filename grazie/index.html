@@ -342,8 +342,9 @@ html:not(.js) .orologio{display:none}
 <!-- LA DIRETTA (11/11/2026): il conto alla rovescia sta qui e non piu' nell'apertura, per non
      averne due uno sopra l'altro. LINK ZOOM: al posto di ZOOM_LINK_12_NOVEMBRE va il link del
      webinar del 12/11, nei tre bottoni (qui, testata, fisso). Finche' non e' un link zoom.us i
-     bottoni restano nascosti e la nota dice che il link arriva per email. Attenzione: l'11/11
-     il valore zoom_link di Leadfather era ancora il webinar del 12/10 (996 3169 6513), da non usare.
+     bottoni restano nascosti e la nota dice che il bottone compare qui. Dall'11/11 pomeriggio il
+     valore zoom_link di Leadfather e' QUESTA pagina (prima era il webinar del 12/10, 996 3169 6513):
+     promemoria ed email mandano qui, quindi il link Zoom vero serve solo in questi tre bottoni.
      data-chiude e' largo apposta (la live del 12/10 e' durata 3 ore e 17). -->
 <section class="diretta" aria-labelledby="diretta-titolo">
 <div class="wrap">
@@ -372,7 +373,8 @@ html:not(.js) .orologio{display:none}
 <div class="azioni"><a class="btn-sec" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Medicina+in+modalit%C3%A0+facile+%7C+Portale+dei+Futuri+Medici&amp;dates=20261112T200000Z%2F20261112T213000Z&amp;details=Webinar+gratuito+su+Zoom+con+il+Dr.+Fabrizio+Bucci%2C+Matteo+Piazzo+e+Luca+Pelliccia.+Il+link+Zoom+ti+arriva+per+email+prima+della+diretta.+Porta+un+quaderno+e+una+penna.%0Ahttps%3A%2F%2Fportaledeifuturimedici.com%2Fevento%2F&amp;location=Zoom&amp;ctz=Europe%2FRome" rel="noopener nofollow" target="_blank" data-count="grazie-calendario-2">Google Calendar</a><a class="btn-sec" href="/evento/medicina-in-modalita-facile.ics" download data-count="grazie-ics-2">Apple o Outlook</a></div></li>
 <li class="passo c-bio" data-rivela><h3>Entra nella community WhatsApp</h3><p>Da lì passano gli avvisi della live e i promemoria della serata.</p>
 <div class="azioni"><a class="btn-sec" href="https://chat.whatsapp.com/H3DCOOBzpx5HVOF8IRPmiT" rel="noopener nofollow" target="_blank" data-count="grazie-whatsapp">Entra nella community &rarr;</a></div></li>
-<li class="passo c-chi" data-rivela><h3>Tieni d'occhio la posta</h3><p>Il link Zoom e lo Studybook ti arrivano per email prima della diretta. Se non li vedi, guarda in Spam o in Promozioni e sposta il messaggio nella posta principale.</p></li>
+<li class="passo c-chi" data-rivela><h3>Tieni d'occhio la posta</h3><p>Il link Zoom ti arriva per email prima della diretta. Se non lo vedi, guarda in Spam o in Promozioni e sposta il messaggio nella posta principale. Lo Studybook puoi scaricarlo subito.</p>
+<div class="azioni"><a class="btn-sec" href="https://portaledeifuturimedici.com/studybook-12Novembre/" rel="noopener" target="_blank" data-count="grazie-studybook">Scarica lo Studybook &rarr;</a></div></li>
 <li class="passo c-fis" data-rivela><h3>Prepara quaderno e penna</h3><p>Alle 21:15 comincia la lezione sulla sintesi proteica, con lo Studybook aperto. Se usi Zoom per la prima volta, apri il link qualche minuto prima delle 21.</p></li>
 </ol>
 </div>
@@ -496,7 +498,7 @@ html:not(.js) .orologio{display:none}
       entra.hidden = true;
       if (testaEntra) { testaEntra.parentNode.removeChild(testaEntra); testaEntra = null; }
       if (fisso) { fisso.parentNode.removeChild(fisso); fisso = null; }
-      nota.textContent = 'Il link Zoom per entrare ti arriva per email prima della diretta.';
+      nota.textContent = 'Il bottone per entrare in Zoom compare qui prima della diretta: giovedì sera torna su questa pagina.';
     }
 
     var metti = function (s) {
@@ -508,7 +510,7 @@ html:not(.js) .orologio{display:none}
         occhiello.textContent = 'In onda adesso su Zoom';
         cap.hidden = false;
         orologio.setAttribute('aria-label', "Tempo dall'inizio della diretta");
-        nota.textContent = linkOk ? "La lezione è cominciata: entra adesso, dall'app di Zoom o dal browser." : 'La lezione è cominciata: entra dal link Zoom che ti abbiamo mandato per email.';
+        nota.textContent = linkOk ? "La lezione è cominciata: entra adesso, dall'app di Zoom o dal browser." : 'La lezione è cominciata: se il bottone per entrare non c’è ancora, ricarica la pagina tra un minuto.';
       } else if (s === 'finita') {
         titolo.innerHTML = 'La diretta è <em>finita</em>';
         occhiello.textContent = 'Giovedì 12 novembre · su Zoom';
