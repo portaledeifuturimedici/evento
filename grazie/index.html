@@ -244,6 +244,53 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 .chiusa .lead{margin-inline:auto}
 .chiusa .azioni{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
 .piede{padding-bottom:40px}
+/* --- LA DIRETTA (11/11/2026): titolo «Siamo in diretta tra:», conto alla rovescia grande e
+   bottone «Partecipa alla lezione» che apre Zoom (senza un link zoom.us il bottone non esce).
+   La carta resta scura anche col tema chiaro, come il riquadro della VSL: e' il palco della
+   serata. Dietro, l'anello d'oro con i tre nodi del logo che gli girano attorno (il «portale»
+   della sala d'attesa del deck). Stati in data-stato, li mette lo script: prima (conto alla
+   rovescia), in-onda (tempo dall'inizio), finita (niente bottone). Da un'ora prima fino alla
+   chiusura compaiono anche il bottone in testata e quello fisso da telefono. --- */
+.diretta{padding:0 0 64px}
+@media (min-width:760px){.diretta{padding:0 0 84px}}
+.palco{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(44px,7vw,78px) clamp(18px,5vw,56px) clamp(38px,6vw,64px);border-radius:30px;color:#fff;background:radial-gradient(60% 55% at 50% 0%,rgba(124,147,255,.30),transparent 72%),radial-gradient(55% 50% at 50% 100%,rgba(255,107,176,.24),transparent 74%),radial-gradient(42% 42% at 50% 54%,rgba(255,178,62,.12),transparent 70%),#14102A;box-shadow:0 40px 90px -40px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.09)}
+.palco::after{content:"";position:absolute;inset:0;z-index:-2;background-image:radial-gradient(rgba(255,255,255,.11) 1px,transparent 1.3px);background-size:24px 24px;-webkit-mask-image:radial-gradient(72% 72% at 50% 50%,#000,transparent);mask-image:radial-gradient(72% 72% at 50% 50%,#000,transparent)}
+.palco :focus-visible{outline-color:#2BE0E0}
+.palco-anello{--d:clamp(330px,61vw,780px);position:absolute;left:50%;top:50%;z-index:-1;width:var(--d);height:var(--d);margin:calc(var(--d) / -2) 0 0 calc(var(--d) / -2);border-radius:50%;border:1.5px solid rgba(255,178,62,.30);box-shadow:0 0 70px -10px rgba(255,178,62,.22),inset 0 0 70px -10px rgba(255,178,62,.16);animation:gira 24s linear infinite;pointer-events:none}
+.palco-anello i{position:absolute;left:50%;top:50%;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:var(--n);box-shadow:0 0 0 5px color-mix(in srgb,var(--n) 22%,transparent),0 0 24px var(--n);transform:rotate(var(--a)) translateY(calc(var(--d) / -2))}
+@keyframes gira{to{transform:rotate(360deg)}}
+.palco-occhiello{display:inline-flex;align-items:center;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);font:600 .78rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:#FFD08A;margin-bottom:22px}
+.palco[data-stato=prima] .pallino{background:#FFB23E;animation:none;box-shadow:0 0 0 4px rgba(255,178,62,.2)}
+.palco-titolo{font-size:clamp(2.1rem,6.6vw,4rem);line-height:.98;letter-spacing:-.035em;text-transform:uppercase;margin-bottom:clamp(26px,4vw,38px)}
+.palco-titolo em{font-style:normal;background:linear-gradient(100deg,#3ED9A0,#2BE0E0 30%,#7C93FF 60%,#FF6BB0 90%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:iride 9s ease-in-out infinite alternate;padding-right:.04em}
+.orologio-cap{font:600 .78rem/1 var(--mono);text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.66);margin:-12px 0 16px}
+.orologio{display:flex;justify-content:center;gap:clamp(8px,2.4vw,24px)}
+html:not(.js) .orologio{display:none}
+.cifra{position:relative;min-width:clamp(68px,18vw,128px);padding:clamp(14px,2.2vw,22px) 6px clamp(11px,1.6vw,16px);border-radius:clamp(14px,2vw,22px);background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 40px -24px rgba(0,0,0,.9)}
+.cifra::after{content:"";position:absolute;left:20%;right:20%;top:-1px;height:3px;border-radius:0 0 3px 3px;background:var(--n);box-shadow:0 0 14px var(--n)}
+.cifra.c1{--n:#2BE0E0}.cifra.c2{--n:#7C93FF}.cifra.c3{--n:#FF6BB0}.cifra.c4{--n:#FFB23E}
+.cifra b{display:block;font:700 clamp(2.2rem,7.6vw,4.6rem)/1 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.cifra span{display:block;margin-top:clamp(7px,1vw,10px);font:600 clamp(.6rem,1.4vw,.74rem)/1 var(--mono);text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.62)}
+.cifra b.tic{animation:tic .45s ease}
+@media (min-width:560px){.cifra:not([hidden])+.cifra::before{content:":";position:absolute;left:calc(clamp(8px,2.4vw,24px) / -2);top:clamp(14px,2.2vw,22px);transform:translateX(-50%);font:700 clamp(2.2rem,7.6vw,4.6rem)/1 var(--mono);color:rgba(255,255,255,.28)}}
+.entra-box{position:relative;display:inline-flex;margin-top:clamp(30px,4.4vw,44px);border-radius:999px}
+.entra-box::before{content:"";position:absolute;inset:-7px;border-radius:inherit;border:2px solid rgba(255,178,62,.55);animation:onda-entra 2.6s ease-out infinite;pointer-events:none}
+@keyframes onda-entra{0%{transform:scale(.97);opacity:.9}100%{transform:scale(1.06,1.4);opacity:0}}
+.btn-entra{padding:22px 40px;font:800 clamp(1.06rem,2.4vw,1.3rem)/1.15 var(--sans);text-transform:uppercase;letter-spacing:.04em;gap:.7em;box-shadow:0 20px 50px -14px rgba(255,130,120,.95),inset 0 0 0 1px rgba(255,255,255,.25)}
+.btn-entra svg{flex:none;width:1.35em;height:1.35em}
+@media (max-width:559px){
+  .entra-box{display:flex;align-self:stretch}
+  .btn-entra{width:100%;padding:20px 12px;font-size:1rem;letter-spacing:.01em;gap:.55em}
+  .btn-entra .freccia{display:none}
+  .palco-occhiello{font-size:.68rem;letter-spacing:.06em;padding:7px 12px}
+  .palco-occhiello .pallino{margin-right:7px}
+}
+.palco-nota{margin-top:20px;max-width:46ch;font-size:.94rem;line-height:1.5;color:rgba(255,255,255,.72)}
+.palco[data-stato=finita] .orologio,.palco[data-stato=finita] .entra-box{display:none}
+.palco[data-stato=finita] .pallino{background:rgba(255,255,255,.45);animation:none;box-shadow:none}
+.da-largo{display:none}
+@media (min-width:720px){.da-largo{display:inline}}
+@media (max-width:959px){body.con-fisso .piede{padding-bottom:120px}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -258,6 +305,7 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 <div class="wrap testa-in">
 <a class="logo" href="/" aria-label="Portale dei Futuri Medici, vai alla home"><svg width="32" height="32" viewBox="0 0 128 128" aria-hidden="true" focusable="false"><rect width="128" height="128" rx="28" fill="#14102A"/><g transform="translate(64,64) scale(1.03) translate(0,7.2)"><path d="M -22,30 A 44,44 0 1 1 22,30" stroke="#D2E8FB" stroke-width="13" fill="none" stroke-linecap="round"/><circle cx="0" cy="-22" r="9" fill="#FFB23E"/><circle cx="-16" cy="8" r="9" fill="#2BE0E0"/><circle cx="16" cy="8" r="9" fill="#C04BFF"/></g></svg><span>Portale dei Futuri Medici</span></a>
 <div class="testa-conto" id="conto-mini" aria-hidden="true" hidden>Gio 12/11 · 21:00 · mancano <b data-u="g">--</b><b data-u="h">--</b><b data-u="m">--</b></div>
+<a class="btn btn-piccolo" id="testa-entra" href="ZOOM_LINK_12_NOVEMBRE" target="_blank" rel="noopener nofollow" data-count="grazie-partecipa-testa" hidden>Partecipa<span class="da-largo">alla lezione</span><span class="freccia" aria-hidden="true">&rarr;</span></a>
 <button class="tema" id="tema" type="button" aria-label="Cambia tema chiaro o scuro">&#9681;</button>
 </div>
 </header>
@@ -269,10 +317,6 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 <p class="occhiello"><span class="spunta" aria-hidden="true">&#10003;</span>Iscrizione confermata</p>
 <h1>Sei <em>dentro<span id="nome-saluto"></span>.</em></h1>
 <p class="sub">Ci vediamo giovedì 12 novembre alle 21, in diretta su Zoom. Adesso fai una cosa sola: metti la live in calendario.</p>
-<div class="conto" id="conto" data-inizio="2026-11-12T21:00:00+01:00" data-fine="2026-11-12T22:30:00+01:00" data-in-diretta="In diretta ora: entra dal link che ti abbiamo mandato" data-finita="Diretta conclusa" role="timer" aria-label="Tempo che manca alla diretta" hidden>
-<div><b data-u="g">--</b><span data-l="g">giorni</span></div><div><b data-u="h">--</b><span data-l="h">ore</span></div><div><b data-u="m">--</b><span data-l="m">minuti</span></div><div><b data-u="s">--</b><span data-l="s">secondi</span></div>
-</div>
-<p class="conto-stato" id="conto-stato" hidden></p>
 </div>
 <div class="vsl-colonna">
 <!-- VSL 1 (dopo l'iscrizione, docs/vsl/vsl-1-dopo-iscrizione.md): scrivere l'id YouTube in data-yt,
@@ -291,6 +335,31 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 <a class="btn btn-luce" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Medicina+in+modalit%C3%A0+facile+%7C+Portale+dei+Futuri+Medici&amp;dates=20261112T200000Z%2F20261112T213000Z&amp;details=Webinar+gratuito+su+Zoom+con+il+Dr.+Fabrizio+Bucci%2C+Matteo+Piazzo+e+Luca+Pelliccia.+Il+link+Zoom+ti+arriva+per+email+prima+della+diretta.+Porta+un+quaderno+e+una+penna.%0Ahttps%3A%2F%2Fportaledeifuturimedici.com%2Fevento%2F&amp;location=Zoom&amp;ctz=Europe%2FRome" rel="noopener nofollow" target="_blank" data-count="grazie-calendario">Aggiungi a Google Calendar <span class="freccia" aria-hidden="true">&rarr;</span></a>
 <a class="btn-sec" href="/evento/medicina-in-modalita-facile.ics" download data-count="grazie-ics">Apple o Outlook (.ics)</a>
 </div>
+</div>
+</div>
+</section>
+
+<!-- LA DIRETTA (11/11/2026): il conto alla rovescia sta qui e non piu' nell'apertura, per non
+     averne due uno sopra l'altro. LINK ZOOM: al posto di ZOOM_LINK_12_NOVEMBRE va il link del
+     webinar del 12/11, nei tre bottoni (qui, testata, fisso). Finche' non e' un link zoom.us i
+     bottoni restano nascosti e la nota dice che il link arriva per email. Attenzione: l'11/11
+     il valore zoom_link di Leadfather era ancora il webinar del 12/10 (996 3169 6513), da non usare.
+     data-chiude e' largo apposta (la live del 12/10 e' durata 3 ore e 17). -->
+<section class="diretta" aria-labelledby="diretta-titolo">
+<div class="wrap">
+<div class="palco" id="diretta" data-inizio="2026-11-12T21:00:00+01:00" data-chiude="2026-11-13T01:00:00+01:00" data-stato="prima" data-rivela>
+<span class="palco-anello" aria-hidden="true"><i style="--a:0deg;--n:#FFB23E"></i><i style="--a:120deg;--n:#2BE0E0"></i><i style="--a:240deg;--n:#C04BFF"></i></span>
+<p class="palco-occhiello"><span class="pallino" aria-hidden="true"></span><span id="diretta-occhiello">Giovedì 12 novembre · 21:00 · Zoom</span></p>
+<h2 class="palco-titolo" id="diretta-titolo">Siamo in <em>diretta</em> tra:</h2>
+<p class="orologio-cap" id="orologio-cap" hidden>In onda da</p>
+<div class="orologio" id="orologio" role="timer" aria-label="Tempo che manca alla diretta">
+<div class="cifra c1"><b data-u="g">--</b><span data-l="g">giorni</span></div>
+<div class="cifra c2"><b data-u="h">--</b><span data-l="h">ore</span></div>
+<div class="cifra c3"><b data-u="m">--</b><span data-l="m">minuti</span></div>
+<div class="cifra c4"><b data-u="s">--</b><span data-l="s">secondi</span></div>
+</div>
+<div class="entra-box"><a class="btn btn-luce btn-entra" id="diretta-entra" href="ZOOM_LINK_12_NOVEMBRE" target="_blank" rel="noopener nofollow" data-count="grazie-partecipa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="13" height="12" rx="3"/><path d="M15.5 10.5l5-3v9l-5-3z"/></svg><span>Partecipa alla lezione</span><span class="freccia" aria-hidden="true">&rarr;</span></a></div>
+<p class="palco-nota" id="diretta-nota">Il bottone apre la lezione su Zoom, dall'app o dal browser. Entra qualche minuto prima delle 21.</p>
 </div>
 </div>
 </section>
@@ -371,6 +440,8 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
 <p>&copy; 2026 Portale dei Futuri Medici &middot; Progetto didattico &middot; Contenuti allineati al Syllabus del Ministero dell'Università e della Ricerca (D.M. 704 del 29/05/2026)</p>
 </div></footer>
 
+<div class="fisso" id="fisso" aria-hidden="true"><a class="btn btn-luce" href="ZOOM_LINK_12_NOVEMBRE" target="_blank" rel="noopener nofollow" data-count="grazie-partecipa-fisso" tabindex="-1">Partecipa alla lezione <span class="freccia" aria-hidden="true">&rarr;</span></a></div>
+
 <dialog class="lente" id="lente" aria-label="Messaggio ingrandito"><button class="lente-chiudi" type="button" aria-label="Chiudi">&times;</button><img src="" alt=""></dialog>
 
 <script>
@@ -394,50 +465,105 @@ abbr[title]{text-decoration:underline dotted;cursor:help}
   });
 
 
-  /* --- conto alla rovescia: quello grande nell'apertura e quello piccolo in testata --- */
-  var conto = d.getElementById('conto');
-  if (conto) {
-    var ini = Date.parse(conto.getAttribute('data-inizio'));
-    var fine = Date.parse(conto.getAttribute('data-fine'));
-    var mini = d.getElementById('conto-mini');
-    var stato = d.getElementById('conto-stato');
-    var celle = tutti('[data-u]', conto), celleMini = mini ? tutti('[data-u]', mini) : [];
+  /* --- la diretta: conto alla rovescia grande (sezione «Siamo in diretta tra:») e piccolo
+     in testata. Da un'ora prima fino a data-chiude escono anche il bottone in testata e,
+     da telefono, quello fisso in basso quando il bottone grande non si vede. Alle 21 il
+     titolo diventa «Siamo in diretta ora» e il conto conta il tempo dall'inizio; dopo
+     data-chiude il bottone sparisce. In anteprima (file locale, o ?anteprima sul dominio)
+     ?ora=2026-11-12T21:05:00%2B01:00 finge l'ora, per provare i tre stati. --- */
+  var palco = d.getElementById('diretta');
+  if (palco) {
+    var ini = Date.parse(palco.getAttribute('data-inizio'));
+    var chiude = Date.parse(palco.getAttribute('data-chiude'));
+    var orologio = d.getElementById('orologio'), cap = d.getElementById('orologio-cap');
+    var titolo = d.getElementById('diretta-titolo'), occhiello = d.getElementById('diretta-occhiello');
+    var nota = d.getElementById('diretta-nota'), entra = palco.querySelector('.entra-box');
+    var mini = d.getElementById('conto-mini'), testaEntra = d.getElementById('testa-entra');
+    var fisso = d.getElementById('fisso'), fissoA = fisso ? fisso.querySelector('a') : null;
+    var celle = tutti('[data-u]', orologio), celleMini = mini ? tutti('[data-u]', mini) : [];
+    var cellaGiorni = orologio.querySelector('.c1');
     var nomi = {g: ['giorno', 'giorni'], h: ['ora', 'ore'], m: ['minuto', 'minuti'], s: ['secondo', 'secondi']};
+    var ANTICIPO = 36e5, fase = '', vedoEntra = false;
+    var dominio = /(^|\.)portaledeifuturimedici\.com$/i.test(location.hostname);
+    var scarto = 0, finta = /[?&]ora=([^&]+)/.exec(location.search);
+    if (finta && (!dominio || /[?&]anteprima\b/.test(location.search))) {
+      var f = Date.parse(decodeURIComponent(finta[1]));
+      if (f) scarto = f - Date.now();
+    }
+    /* senza un link Zoom vero nei bottoni: niente bottoni, il conto alla rovescia resta */
+    var linkOk = /^https:\/\/([a-z0-9-]+\.)?zoom\.us\//i.test(d.getElementById('diretta-entra').getAttribute('href') || '');
+    if (!linkOk) {
+      entra.hidden = true;
+      if (testaEntra) { testaEntra.parentNode.removeChild(testaEntra); testaEntra = null; }
+      if (fisso) { fisso.parentNode.removeChild(fisso); fisso = null; }
+      nota.textContent = 'Il link Zoom per entrare ti arriva per email prima della diretta.';
+    }
+
+    var metti = function (s) {
+      if (s === fase) return;
+      fase = s;
+      palco.setAttribute('data-stato', s);
+      if (s === 'in-onda') {
+        titolo.innerHTML = 'Siamo in <em>diretta</em> ora';
+        occhiello.textContent = 'In onda adesso su Zoom';
+        cap.hidden = false;
+        orologio.setAttribute('aria-label', "Tempo dall'inizio della diretta");
+        nota.textContent = linkOk ? "La lezione è cominciata: entra adesso, dall'app di Zoom o dal browser." : 'La lezione è cominciata: entra dal link Zoom che ti abbiamo mandato per email.';
+      } else if (s === 'finita') {
+        titolo.innerHTML = 'La diretta è <em>finita</em>';
+        occhiello.textContent = 'Giovedì 12 novembre · su Zoom';
+        cap.hidden = true;
+        nota.textContent = 'Grazie a chi c’era. Gli avvisi dei prossimi appuntamenti passano dalla community WhatsApp.';
+      }
+    };
+    var mostraFisso = function (si) {
+      if (!fisso) return;
+      fisso.classList.toggle('si', si);
+      d.body.classList.toggle('con-fisso', si);
+      fisso.setAttribute('aria-hidden', si ? 'false' : 'true');
+      if (si) fissoA.removeAttribute('tabindex'); else fissoA.setAttribute('tabindex', '-1');
+    };
     var giro = function () {
-      var ora = Date.now();
-      if (ora >= ini) {
-        conto.hidden = true;
+      var ora = Date.now() + scarto;
+      if (ora >= chiude) {
+        metti('finita');
         if (mini) mini.hidden = true;
-        stato.hidden = false;
-        stato.textContent = conto.getAttribute(ora >= fine ? 'data-finita' : 'data-in-diretta');
-        if (ora < fine) setTimeout(giro, 30000);
+        if (testaEntra) testaEntra.hidden = true;
+        mostraFisso(false);
         return;
       }
-      var resto = ini - ora, v = {};
+      var inOnda = ora >= ini, vicino = ora >= ini - ANTICIPO;
+      metti(inOnda ? 'in-onda' : 'prima');
+      var resto = inOnda ? ora - ini : ini - ora, v = {};
       v.g = Math.floor(resto / 864e5); resto -= v.g * 864e5;
       v.h = Math.floor(resto / 36e5); resto -= v.h * 36e5;
       v.m = Math.floor(resto / 6e4); resto -= v.m * 6e4;
       v.s = Math.floor(resto / 1e3);
+      cellaGiorni.hidden = v.g === 0;
       celle.forEach(function (b) {
         var u = b.getAttribute('data-u'), t = u === 'g' ? String(v[u]) : ('0' + v[u]).slice(-2);
         if (b.textContent !== t) {
           b.textContent = t;
           if (!calmo) { b.classList.remove('tic'); void b.offsetWidth; b.classList.add('tic'); }
-          var l = conto.querySelector('[data-l="' + u + '"]');
+          var l = orologio.querySelector('[data-l="' + u + '"]');
           if (l) l.textContent = nomi[u][v[u] === 1 ? 0 : 1];
         }
       });
-      celleMini.forEach(function (b) {
-        var u = b.getAttribute('data-u');
-        b.textContent = v[u] + u;
-      });
+      if (mini) {
+        mini.hidden = linkOk ? vicino : inOnda;
+        celleMini.forEach(function (b) { var u = b.getAttribute('data-u'); b.textContent = v[u] + u; });
+      }
+      if (testaEntra) testaEntra.hidden = !vicino;
+      mostraFisso(vicino && !vedoEntra);
       setTimeout(giro, 1000 - (ora % 1000));
     };
-    if (ini > 0 && fine > ini) {
-      conto.hidden = false;
-      if (mini) mini.hidden = false;
-      giro();
+    if (IO && fisso) {
+      new IntersectionObserver(function (es) {
+        vedoEntra = es[0].isIntersecting;
+        if (fase === 'in-onda' || (fase === 'prima' && Date.now() + scarto >= ini - ANTICIPO)) mostraFisso(!vedoEntra);
+      }).observe(entra);
     }
+    if (ini > 0 && chiude > ini) giro();
   }
 
 
